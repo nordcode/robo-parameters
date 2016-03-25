@@ -36,6 +36,6 @@ class YamlSerializer implements ParameterSerializerInterface
             $output .= \NordCode\RoboParameters\wrap_lines($fileHeader, '# ') . "\n";
         }
 
-        return $output . $this->yamlDumper->dump($parameters);
+        return $output . $this->yamlDumper->dump($parameters, 4);
     }
 }
