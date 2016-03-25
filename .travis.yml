@@ -18,7 +18,7 @@ install: composer install
 
 script: 
 - vendor/bin/phpcs --standard=ruleset.xml
-- vendor/bin/phpunit -c phpunit.xml.dist
+- vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
 
 after_success:
   - travis_retry php vendor/bin/coveralls
