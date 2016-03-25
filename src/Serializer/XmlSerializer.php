@@ -49,7 +49,7 @@ class XmlSerializer implements ParameterSerializerInterface
             if (is_array($parameter)) {
                 $this->dumpArrayToNode($parameter, $node, $dom);
             } else {
-                $node->textContent = $parameter;
+                $node->appendChild(new \DOMText($parameter));
             }
         }
     }

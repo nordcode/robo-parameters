@@ -38,7 +38,7 @@ class SymfonyXmlSerializer extends XmlSerializer
             if (is_array($parameter)) {
                 $this->dumpArrayToNode($parameter, $node, $dom);
             } else {
-                $node->textContent = $parameter;
+                $node->appendChild(new \DOMText($parameter));
             }
         }
     }
