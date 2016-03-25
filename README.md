@@ -1,6 +1,6 @@
 Robo Parameters Task
 =====
-[![Build Status](https://travis-ci.org/nordcode/robo-parameters.svg?branch=master)](https://travis-ci.org/nordcode/robo-parameters)
+[![Build Status](https://img.shields.io/travis/nordcode/robo-parameters.svg?style=flat-square)](https://travis-ci.org/nordcode/robo-parameters)
 
 Robo Parameters provides tasks for the Robo PHP task runner to read
 and write parameters from/to files with various formats. You can
