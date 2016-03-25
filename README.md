@@ -17,7 +17,7 @@ files that supports the Symfony XML and YAML format
 
 ## Installation
 Simply add the library as dependency to your `composer.json` (you will mostly only require this in dev):
-```
+```javascript
 {
     "require-dev": {
         "codegyre/robo": "^0.5",
@@ -34,14 +34,16 @@ If you need the YAML reader/writer you will have to add the `symfony/yaml` compo
 
 ## Usage
 After installation you need to add the  to your RoboFile by importing the trait:
-```
+```php
+<?php
+
 use Robo\Tasks;
 
 class RoboFile extends Tasks
 {
     use NordCode\RoboParameters\loadTasks;
     
-    [...]
+    // ...
 }
 ```
 
@@ -50,76 +52,103 @@ Let's start with some examples. For detailed information on the different config
  reference at the end of this file.
 
 ### Basic usage
-```
-public function sometask()
+```php
+<?php
+
+use Robo\Tasks;
+
+class RoboFile extends Tasks
 {
-    // 1. Load the variables host, port, ... from the environment
-    //     variables DB_HOST, DB_PORT, ... and writes them to the file database.xml.
-    // 2. If one of the variables could not be found in the environment
-    //     the task will fail (this is no default)
-    $this
-        ->writeParameters('database.xml')
-        ->loadFromEnvironment(['host', 'port', 'username', 'password', 'db_name'])
-        ->envVariablePrefix('DB')
-        ->failOnMissingEnvVariables()
-        ->run();
+    use NordCode\RoboParameters\loadTasks;
+
+    public function sometask()
+    {
+        // 1. Load the variables host, port, ... from the environment
+        //     variables DB_HOST, DB_PORT, ... and writes them to the file database.xml.
+        // 2. If one of the variables could not be found in the environment
+        //     the task will fail (this is no default)
+        $this
+            ->writeParameters('database.xml')
+            ->loadFromEnvironment(['host', 'port', 'username', 'password', 'db_name'])
+            ->envVariablePrefix('DB')
+            ->failOnMissingEnvVariables()
+            ->run();
+    }
 }
 ```
 
 ### Write with reading from boilerplate
-```
-public function anothertask()
+```php
+<?php
+
+use Robo\Tasks;
+
+class RoboFile extends Tasks
 {
-    // 1. Will load the config.yml.dist file as YAML - format needs
-    //     to be set explicitly, because we cannot determine
-    //     the format by the extension.
-    // 2. The parameter mail_host will be read from the environment
-    //     variable MAIL_HOST or fail back the mail_host value from the boilerplate file
-    // 3. `env` will always be set to "production".
-    // 4. The combined data will be written to config.yml
-    $this
-        ->writeParameters('config.yml')
-        ->useBoilerplate('config.yml.dist', \NordCode\RoboParameters\Format::YAML)
-        ->loadFromEnvironment(['mail_host'])
-        ->set([
-            'env' => 'production'
-        ])
-        ->run();
+    use NordCode\RoboParameters\loadTasks;
+
+    public function anothertask()
+    {
+        // 1. Will load the config.yml.dist file as YAML - format needs
+        //     to be set explicitly, because we cannot determine
+        //     the format by the extension.
+        // 2. The parameter mail_host will be read from the environment
+        //     variable MAIL_HOST or fail back the mail_host value from the boilerplate file
+        // 3. `env` will always be set to "production".
+        // 4. The combined data will be written to config.yml
+        $this
+            ->writeParameters('config.yml')
+            ->useBoilerplate('config.yml.dist', \NordCode\RoboParameters\Format::YAML)
+            ->loadFromEnvironment(['mail_host'])
+            ->set([
+                'env' => 'production'
+            ])
+            ->run();
+    }
 }
 ```
 
 ### Write Symfony parameters.yml
-```
-public function configureSymfony()
+```php
+<?php
+
+use Robo\Tasks;
+
+class RoboFile extends Tasks
 {
-    // This is how you would configure your Symfony application automatically
-    // 1. The app/config/parameters.yml.dist will be used as boilerplate (default)
-    // 2. All the specified variables will be loaded from the environment with `SF` as prefix e.g. SF_DATABASE_USER
-    //    note that this has NOTHING to do with Symfony's capabilities to load parameters from the env during runtime!
-    //    The parameters specified here will be loaded and set while building the project (on deployment).
-    //    So you set the environment variables in your CI tool like Jenkins, Travis, GitLab CI, ...
-    // 3. Finally the secret will be set to a (stupid) random value and the combined data will be
-    //    written to app/config/parameters.xml (note that the boilerplate and final output can have different formats)
+    use NordCode\RoboParameters\loadTasks;
     
-    // please do not use this for actual secret generation!
-    // actually, the secret should be stored in the environment as well
-    $stupidSecret = md5(mt_rand());
-    
-    $this
-        ->writeSymfonyParameters('app/config/parameters.xml', null, 'app/config/parameters.yml.dist')
-        ->envVariablePrefix('SF')
-        ->failOnMissingEnvVariables()
-        ->loadFromEnvironment([
-            'database_host',
-            'database_port',
-            'database_user',
-            'database_password',
-            'mailer_host',
-            'mailer_user',
-            'mailer_password'
-        ])
-        ->set('secret', $stupidSecret)
-        ->run();
+    public function configureSymfony()
+    {
+        // This is how you would configure your Symfony application automatically
+        // 1. The app/config/parameters.yml.dist will be used as boilerplate (default)
+        // 2. All the specified variables will be loaded from the environment with `SF` as prefix e.g. SF_DATABASE_USER
+        //    note that this has NOTHING to do with Symfony's capabilities to load parameters from the env during runtime!
+        //    The parameters specified here will be loaded and set while building the project (on deployment).
+        //    So you set the environment variables in your CI tool like Jenkins, Travis, GitLab CI, ...
+        // 3. Finally the secret will be set to a (stupid) random value and the combined data will be
+        //    written to app/config/parameters.xml (note that the boilerplate and final output can have different formats)
+        
+        // please do not use this for actual secret generation!
+        // actually, the secret should be stored in the environment as well
+        $stupidSecret = md5(mt_rand());
+        
+        $this
+            ->writeSymfonyParameters('app/config/parameters.xml', null, 'app/config/parameters.yml.dist')
+            ->envVariablePrefix('SF')
+            ->failOnMissingEnvVariables()
+            ->loadFromEnvironment([
+                'database_host',
+                'database_port',
+                'database_user',
+                'database_password',
+                'mailer_host',
+                'mailer_user',
+                'mailer_password'
+            ])
+            ->set('secret', $stupidSecret)
+            ->run();
+    }
 }
 ```
 
@@ -164,7 +193,7 @@ this uses the YAML format and will try to load the `app/config/parameters.yml.di
 If you would like to make your own task more dynamically by loading some settings from a central file, you can use
 the `FileConfigurable` trait:
 
-```
+```php
 <?php
 // RoboFile.php
 
