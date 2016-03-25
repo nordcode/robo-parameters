@@ -19,3 +19,6 @@ install: composer install
 script: 
 - vendor/bin/phpcs --standard=ruleset.xml
 - vendor/bin/phpunit -c phpunit.xml.dist
+
+after_success:
+  - travis_retry php vendor/bin/coveralls
