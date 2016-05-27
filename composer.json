@@ -13,10 +13,10 @@
         "psr-4": {
             "NordCode\\RoboParameters\\Test\\" : "test",
             "NordCode\\RoboParameters\\" : "src"
-        } 
+        }
     },
     "require": {
-        "codegyre/robo": "^0.5"
+        "codegyre/robo": ">=0.5"
     },
     "suggest": {
         "symfony/yaml": "Required for reading and writing YAML files"
