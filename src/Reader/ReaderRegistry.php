@@ -21,7 +21,8 @@ class ReaderRegistry extends FormatRegistry
             ->register(JsonReader::class, array(Format::JSON))
             ->register(PhpReader::class, array(Format::PHP))
             ->register(XmlReader::class, array(Format::XML))
-            ->register(YamlReader::class, array(Format::YAML));
+            ->register(YamlReader::class, array(Format::YAML))
+            ->register(DotenvReader::class, array(Format::ENV));
         return $instance;
     }
 }

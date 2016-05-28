@@ -11,6 +11,7 @@ class Format
     const INI = 'ini';
     const JSON = 'json';
     const PHP = 'php';
+    const ENV = 'env';
 
     /**
      * Some apps come with suffixed example config files
@@ -34,7 +35,8 @@ class Format
         'xml' => self::XML,
         'ini' => self::INI,
         'php' => self::PHP,
-        'json' => self::JSON
+        'json' => self::JSON,
+        'env' => self::ENV
     );
 
     /**

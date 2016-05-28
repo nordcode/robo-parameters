@@ -21,7 +21,8 @@ class SerializerRegistry extends FormatRegistry
             ->register(JsonSerializer::class, array(Format::JSON))
             ->register(PhpSerializer::class, array(Format::PHP))
             ->register(XmlSerializer::class, array(Format::XML))
-            ->register(YamlSerializer::class, array(Format::YAML));
+            ->register(YamlSerializer::class, array(Format::YAML))
+            ->register(DotenvSerializer::class, array(Format::ENV));
         return $instance;
     }
 }
