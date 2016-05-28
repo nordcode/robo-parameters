@@ -6,17 +6,18 @@ use NordCode\RoboParameters\Format;
 
 class FormatTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGuessFormatFromPathDataProvider()
+    public function guessFormatFromPathDataProvider()
     {
         return array(
             array('/var/www/test/config.yaml', Format::YAML),
-            array('app/config/parameters.yml.dist', Format::YAML)
+            array('app/config/parameters.yml.dist', Format::YAML),
+            array('foo/.env', Format::ENV)
         );
     }
 
     /**
      * @test
-     * @dataProvider testGuessFormatFromPathDataProvider
+     * @dataProvider guessFormatFromPathDataProvider
      */
     public function testGuessFormatFromPath($path, $format)
     {

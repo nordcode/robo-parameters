@@ -5,7 +5,7 @@ namespace NordCode\RoboParameters\Test;
 class functionsTest extends BaseTestCase
 {
 
-    public function test_array_depth_data()
+    public function array_depth_data()
     {
         return array(
             array(
@@ -29,7 +29,7 @@ class functionsTest extends BaseTestCase
 
     /**
      * @test
-     * @dataProvider test_array_depth_data
+     * @dataProvider array_depth_data
      * @param array $array
      * @param int $expected_depth
      */
@@ -38,7 +38,7 @@ class functionsTest extends BaseTestCase
         $this->assertEquals($expected_depth, \NordCode\RoboParameters\array_depth($array));
     }
 
-    public function test_wrap_lines_data()
+    public function wrap_lines_data()
     {
         return array(
             array(
@@ -64,7 +64,7 @@ class functionsTest extends BaseTestCase
 
     /**
      * @test
-     * @dataProvider test_wrap_lines_data
+     * @dataProvider wrap_lines_data
      * @param array $array
      * @param int $expected_depth
      */
