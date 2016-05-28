@@ -90,16 +90,14 @@ class RoboFile extends Tasks
 
     public function anothertask()
     {
-        // 1. Will load the config.yml.dist file as YAML - format needs
-        //     to be set explicitly, because we cannot determine
-        //     the format by the extension.
+        // 1. Will load the config.yml.dist file as YAML
         // 2. The parameter mail_host will be read from the environment
         //     variable MAIL_HOST or fail back the mail_host value from the boilerplate file
         // 3. `env` will always be set to "production".
         // 4. The combined data will be written to config.yml
         $this
             ->writeParameters('config.yml')
-            ->useBoilerplate('config.yml.dist', \NordCode\RoboParameters\Format::YAML)
+            ->useBoilerplate('config.yml.dist')
             ->loadFromEnvironment(['mail_host'])
             ->set([
                 'env' => 'production'

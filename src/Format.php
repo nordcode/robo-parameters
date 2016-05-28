@@ -13,6 +13,17 @@ class Format
     const PHP = 'php';
 
     /**
+     * Some apps come with suffixed example config files
+     * Like Symfony's parameters.yml.dist or Dotenv's .env.example
+     *
+     * @var array
+     */
+    private static $distributionSuffixes = array(
+        '.dist',
+        '.example'
+    );
+
+    /**
      * Map file extensions to internal file types
      *
      * @var array
@@ -33,12 +44,24 @@ class Format
      */
     public static function guessFormatFromPath($path)
     {
-        $ext = pathinfo($path, PATHINFO_EXTENSION);
+        $filename = self::stripDistSuffix(basename($path));
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
         if (isset(self::$extensionMapping[$ext])) {
             return self::$extensionMapping[$ext];
         } else {
             throw new FormatException('Could not guess output format from path ' . $path);
         }
+    }
+
+    /**
+     * @param string $filename
+     * @return string
+     */
+    private static function stripDistSuffix($filename)
+    {
+        $escapedSuffixes = array_map('preg_quote', self::$distributionSuffixes);
+        $regex = '/' . implode('|', $escapedSuffixes) . '$/';
+        return preg_replace($regex, '', $filename) ?: $filename;
     }
 }
