@@ -3,7 +3,6 @@
 namespace NordCode\RoboParameters\Reader;
 
 use NordCode\RoboParameters\Reader\Dotenv\DotenvLoaderInterface;
-use NordCode\RoboParameters\Reader\Dotenv\FileLoader;
 
 class DotenvReader implements ParameterReaderInterface
 {
@@ -27,7 +26,7 @@ class DotenvReader implements ParameterReaderInterface
             );
         }
 
-        $this->dotenvLoaderClass = $dotenvLoaderClass ?: FileLoader::class;
+        $this->dotenvLoaderClass = $dotenvLoaderClass ?: 'NordCode\RoboParameters\Reader\Dotenv\FileLoader';
     }
 
     /**
