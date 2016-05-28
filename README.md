@@ -2,6 +2,7 @@ Robo Parameters Task
 =====
 [![Build Status](https://img.shields.io/travis/nordcode/robo-parameters.svg?style=flat-square)](https://travis-ci.org/nordcode/robo-parameters)
 [![Coverage Status](https://img.shields.io/coveralls/nordcode/robo-parameters/master.svg?style=flat-square)](https://coveralls.io/r/nordcode/robo-parameters)
+[![Dependency Status](https://www.versioneye.com/user/projects/57497c2ace8d0e004505f8aa/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57497c2ace8d0e004505f8aa)
 
 Robo Parameters provides tasks for the Robo PHP task runner to read
 and write parameters from/to files with various formats. You can
