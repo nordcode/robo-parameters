@@ -36,7 +36,8 @@ EOL;
                     'sphere' => 'space? spaaace!',
                     'foo' => 'bar'
                 ),
-                'Hello World')
+                'Hello World'
+            )
         );
     }
 
