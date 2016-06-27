@@ -151,6 +151,42 @@ class RoboFile extends Tasks
 }
 ```
 
+### Use with Laravel (dotenv files)
+```php
+<?php
+
+use Robo\Tasks;
+
+class RoboFile extends Tasks
+{
+    use NordCode\RoboParameters\loadTasks;
+
+    public function configureLaravel()
+    {
+        // This is a basic example how to configure a Laravel app in your deployment process
+        //  Laravel utilizes vlucas/phpdotenv library to load part of your configuration from the .env file
+        // 1. Load the distributed configuration from .env.example. You should place common configuration in this file
+        // 2. All the specified variables will be loaded from the environment
+        // 3. The combined configuration will be written to .env
+        $this
+            ->writeParameters('.env')
+            ->useBoilerplate('.env.example')
+            // the keys are case-insensitive so app_env will be read from environment and written to .env as APP_ENV
+            ->loadFromEnvironment([
+                'app_env',
+                'app_url',
+                'db_database',
+                'db_username',
+                'db_password',
+                'mail_host',
+                'mail_username',
+                'mail_password'
+            ])
+            ->run();
+    }
+}
+```
+
 
 ## `Parameters` Task Reference
 A new instance can be created with `$this->writeParameters($path, $format = null)` when using the `loadTasks` trait.
