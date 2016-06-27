@@ -29,7 +29,14 @@ EOL;
 
         $this->assertEquals(
             $expected,
-            $this->fixture->serialize(array('hello' => 1, 'foo' => 'bar', 'sphere' => 'space? spaaace!'), 'Hello World')
+            $this->fixture->serialize(
+                array(
+                    'hello' => 1,
+                    'FOO' => 'nope',
+                    'sphere' => 'space? spaaace!',
+                    'foo' => 'bar'
+                ),
+                'Hello World')
         );
     }
 

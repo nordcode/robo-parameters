@@ -24,13 +24,18 @@ class DotenvSerializer implements ParameterSerializerInterface
      */
     private function serializeKeyValuePairs(array $fields, $keyPrefix = '')
     {
-        $output = '';
+        // unify the array by sanitized key so keys 'test' and 'TEST' are the same
+        $unified = [];
         foreach ($fields as $key => $value) {
+            $key = $this->sanitizeEnvVariableName($key);
+            $unified[$key] = $value;
+        }
+
+        $output = '';
+        foreach ($unified as $key => $value) {
             if (strlen($keyPrefix)) {
                 $key = $keyPrefix . '__' . $key;
             }
-
-            $key = $this->sanitizeEnvVariableName($key);
 
             if (is_array($value)) {
                 $output .= $this->serializeKeyValuePairs($value, $key);
