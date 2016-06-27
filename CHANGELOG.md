@@ -1,4 +1,4 @@
-# v1.1.0 (unreleased)
+# v1.1.0
 - Add support for dotenv files
 - Add format-guessing for distribution/example files (`*.yml.dist`, `*.example`, ...)
 - HHVM compatibility
