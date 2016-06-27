@@ -9,6 +9,7 @@ class IniReader implements ParameterReaderInterface
      */
     public function readFromFile($path)
     {
-        return parse_ini_file($path, true, INI_SCANNER_RAW);
+        // HHVM <= 3.14 has no stream-wrapper support in parse_ini_file()
+        return parse_ini_string(file_get_contents($path), true, INI_SCANNER_RAW);
     }
 }
