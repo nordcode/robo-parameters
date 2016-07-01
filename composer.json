@@ -23,8 +23,8 @@
         "vlucas/phpdotenv": "Required for reading dotenv files"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8",
-        "squizlabs/php_codesniffer": "~2.3.3",
+        "phpunit/phpunit": ">=4.8",
+        "squizlabs/php_codesniffer": ">=2.3.3",
         "mikey179/vfsStream": "^1.6",
         "satooshi/php-coveralls": "^1.0",
         "vlucas/phpdotenv": ">=2.0.0"
