@@ -16,7 +16,7 @@ trait FileConfigurable
      * @param int|null $format
      * @return $this
      */
-    public function loadConfiguration($path, $format = null)
+    protected function loadConfiguration($path, $format = null)
     {
         $readerRegistry = ReaderRegistry::getDefaultInstance();
         $reader = $readerRegistry->getInstanceForFormat(
@@ -33,7 +33,7 @@ trait FileConfigurable
      * @param mixed $default
      * @return mixed
      */
-    public function get($key, $default = null)
+    protected function get($key, $default = null)
     {
         $val = dot_access($this->configuration, $key);
         return $val !== null ? $val : $default;
