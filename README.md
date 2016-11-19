@@ -243,8 +243,8 @@ class RoboFile extends Tasks
         // load the configuration for the task (optionally) with boilerplate fallback
         // if loading was successful you can use $this->get() in all the following tasks to receive a value
         $this
-          ->useBoilerplate('config.dist.yml')
-          ->loadConfiguration('config.yml');
+            ->useBoilerplate('config.dist.yml')
+            ->loadConfiguration('config.yml');
     }
     
     public function foo() {
