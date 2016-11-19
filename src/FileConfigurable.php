@@ -6,6 +6,8 @@ use NordCode\RoboParameters\Reader\ReaderRegistry;
 
 trait FileConfigurable
 {
+    use Boilerplate;
+
     /**
      * @var array
      */
@@ -22,7 +24,7 @@ trait FileConfigurable
         $reader = $readerRegistry->getInstanceForFormat(
             $format ?: Format::guessFormatFromPath($path)
         );
-        $this->configuration = $reader->readFromFile($path);
+        $this->configuration = $reader->readFromFile($path) + $this->readFromBoilerplate();
         return $this;
     }
 

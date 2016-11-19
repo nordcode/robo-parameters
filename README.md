@@ -240,9 +240,11 @@ class RoboFile extends Tasks
 
     public function __construct()
     {
-        // load the configuration for the task (optionally)
+        // load the configuration for the task (optionally) with boilerplate fallback
         // if loading was successful you can use $this->get() in all the following tasks to receive a value
-        $this->loadConfiguration('config.yml');
+        $this
+          ->useBoilerplate('config.dist.yml')
+          ->loadConfiguration('config.yml');
     }
     
     public function foo() {

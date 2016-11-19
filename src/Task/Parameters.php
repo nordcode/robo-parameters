@@ -2,6 +2,7 @@
 
 namespace NordCode\RoboParameters\Task;
 
+use NordCode\RoboParameters\Boilerplate;
 use NordCode\RoboParameters\Format;
 use NordCode\RoboParameters\Reader\ReaderRegistry;
 use NordCode\RoboParameters\Serializer\SerializerRegistry;
@@ -14,6 +15,7 @@ use Robo\Task\BaseTask;
  */
 class Parameters extends BaseTask
 {
+    use Boilerplate;
 
     /**
      * @var array
@@ -39,16 +41,6 @@ class Parameters extends BaseTask
      * @var string
      */
     protected $outputFormat;
-
-    /**
-     * @var string
-     */
-    protected $boilerplatePath;
-
-    /**
-     * @var string
-     */
-    protected $boilerplateFormat;
 
     /**
      * @var bool
@@ -175,20 +167,6 @@ class Parameters extends BaseTask
     }
 
     /**
-     * Configure from which file the basic values will be read from
-     *
-     * @param string $path
-     * @param string|null $format
-     * @return $this
-     */
-    public function useBoilerplate($path, $format = null)
-    {
-        $this->boilerplatePath = $path;
-        $this->boilerplateFormat = $format;
-        return $this;
-    }
-
-    /**
      * Override possible existing output file
      *
      * @return $this
@@ -282,26 +260,6 @@ class Parameters extends BaseTask
         }
 
         return array_replace_recursive($boilerplateParameters, $environmentParameters, $this->parameters);
-    }
-
-    /**
-     * @return array
-     * @throws TaskException
-     */
-    protected function readFromBoilerplate()
-    {
-        if (is_string($this->boilerplatePath)) {
-            if (!file_exists($this->boilerplatePath) || !is_file($this->boilerplatePath)) {
-                throw new TaskException($this, 'Cannot open boilerplate file ' . $this->boilerplatePath);
-            }
-
-            $format = $this->boilerplateFormat ?: Format::guessFormatFromPath($this->boilerplatePath);
-
-            $reader = $this->getReaderRegistry()->getInstanceForFormat($format);
-            return $reader->readFromFile($this->boilerplatePath);
-        } else {
-            return array();
-        }
     }
 
     /**
