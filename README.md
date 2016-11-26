@@ -240,9 +240,12 @@ class RoboFile extends Tasks
 
     public function __construct()
     {
-        // load the configuration for the task (optionally)
+        // load the configuration for the task from one or multiple files
+        // the configurations will be merged into a single array
         // if loading was successful you can use $this->get() in all the following tasks to receive a value
-        $this->loadConfiguration('config.yml');
+        $this
+            ->loadConfiguration('config.dist.yml')
+            ->loadConfiguration('config.yml');
     }
     
     public function foo() {
