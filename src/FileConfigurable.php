@@ -22,7 +22,7 @@ trait FileConfigurable
      */
     protected function loadConfiguration($path, $format = null)
     {
-        $this->configuration = array_replace_recursive($this->configuration, $this->readFromFile($path, $format));
+        $this->configuration = $this->readFromFile($path, $format) + $this->configuration;
 
         return $this;
     }
