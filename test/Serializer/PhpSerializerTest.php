@@ -20,6 +20,7 @@ class PhpSerializerTest extends SerializerTestCase
     public function testSerialize()
     {
         $expected = <<<EOL
+<?php
 /**
  * Hello World
  */
