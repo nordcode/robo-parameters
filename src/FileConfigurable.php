@@ -2,10 +2,14 @@
 
 namespace NordCode\RoboParameters;
 
-use NordCode\RoboParameters\Reader\ReaderRegistry;
-
 trait FileConfigurable
 {
+    // make sure they don't appear as tasks when imported into the Robo class
+    use FileReader {
+        getReaderRegistry as protected;
+        setReaderRegistry as protected;
+    }
+
     /**
      * @var array
      */
@@ -18,11 +22,8 @@ trait FileConfigurable
      */
     protected function loadConfiguration($path, $format = null)
     {
-        $readerRegistry = ReaderRegistry::getDefaultInstance();
-        $reader = $readerRegistry->getInstanceForFormat(
-            $format ?: Format::guessFormatFromPath($path)
-        );
-        $this->configuration = $reader->readFromFile($path);
+        $this->configuration = $this->readFromFile($path, $format) + $this->configuration;
+
         return $this;
     }
 

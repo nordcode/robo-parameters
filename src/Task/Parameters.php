@@ -2,8 +2,8 @@
 
 namespace NordCode\RoboParameters\Task;
 
+use NordCode\RoboParameters\FileReader;
 use NordCode\RoboParameters\Format;
-use NordCode\RoboParameters\Reader\ReaderRegistry;
 use NordCode\RoboParameters\Serializer\SerializerRegistry;
 use Robo\Exception\TaskException;
 use Robo\Result;
@@ -14,16 +14,12 @@ use Robo\Task\BaseTask;
  */
 class Parameters extends BaseTask
 {
+    use FileReader;
 
     /**
      * @var array
      */
     protected $parameters = array();
-
-    /**
-     * @var ReaderRegistry
-     */
-    protected $readerRegistry;
 
     /**
      * @var SerializerRegistry
@@ -85,28 +81,6 @@ class Parameters extends BaseTask
     {
         $this->outputPath = $path;
         $this->outputFormat = $format;
-    }
-
-    /**
-     * @return ReaderRegistry
-     */
-    public function getReaderRegistry()
-    {
-        if (!$this->readerRegistry) {
-            $this->readerRegistry = ReaderRegistry::getDefaultInstance();
-        }
-
-        return $this->readerRegistry;
-    }
-
-    /**
-     * @param ReaderRegistry $readerRegistry
-     * @return Parameters
-     */
-    public function setReaderRegistry($readerRegistry)
-    {
-        $this->readerRegistry = $readerRegistry;
-        return $this;
     }
 
     /**
@@ -268,7 +242,7 @@ class Parameters extends BaseTask
         // 1. load from boilerplate
         // 2. load from environment
         // 3. load from $this->parameters
-        $boilerplateParameters = $this->readFromBoilerplate();
+        $boilerplateParameters = $this->readFromFile($this->boilerplatePath, $this->boilerplateFormat);
 
         $environmentParameters = $this->tryToLoadFromEnvironment($this->loadFromEnvironment);
         $missingInEnvironment = array_diff($this->loadFromEnvironment, array_keys($environmentParameters));
@@ -282,26 +256,6 @@ class Parameters extends BaseTask
         }
 
         return array_replace_recursive($boilerplateParameters, $environmentParameters, $this->parameters);
-    }
-
-    /**
-     * @return array
-     * @throws TaskException
-     */
-    protected function readFromBoilerplate()
-    {
-        if (is_string($this->boilerplatePath)) {
-            if (!file_exists($this->boilerplatePath) || !is_file($this->boilerplatePath)) {
-                throw new TaskException($this, 'Cannot open boilerplate file ' . $this->boilerplatePath);
-            }
-
-            $format = $this->boilerplateFormat ?: Format::guessFormatFromPath($this->boilerplatePath);
-
-            $reader = $this->getReaderRegistry()->getInstanceForFormat($format);
-            return $reader->readFromFile($this->boilerplatePath);
-        } else {
-            return array();
-        }
     }
 
     /**
