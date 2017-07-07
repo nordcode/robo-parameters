@@ -242,7 +242,7 @@ class Parameters extends BaseTask
         // 1. load from boilerplate
         // 2. load from environment
         // 3. load from $this->parameters
-        $boilerplateParameters = $this->readFromFile($this->boilerplatePath, $this->boilerplateFormat);
+        $boilerplateParameters = $this->readFromBoilerplate();
 
         $environmentParameters = $this->tryToLoadFromEnvironment($this->loadFromEnvironment);
         $missingInEnvironment = array_diff($this->loadFromEnvironment, array_keys($environmentParameters));
@@ -296,5 +296,15 @@ class Parameters extends BaseTask
 
             return strtoupper($prefix . $name);
         }
+    }
+
+    /**
+     * Load the content of the boilerplate file as array
+     *
+     * @return array
+     */
+    protected function readFromBoilerplate()
+    {
+        return $this->readFromFile($this->boilerplatePath, $this->boilerplateFormat);
     }
 }
