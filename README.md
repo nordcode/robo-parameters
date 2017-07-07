@@ -21,7 +21,7 @@ Simply add the library as dependency to your `composer.json` (you will mostly on
 ```javascript
 {
     "require-dev": {
-        "codegyre/robo": "^0.5",
+        "consolidation/robo": "^1.0",
         "nordcode/robo-parameters": "^1.0"
     }
 }
