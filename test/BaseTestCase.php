@@ -2,7 +2,9 @@
 
 namespace NordCode\RoboParameters\Test;
 
-abstract class BaseTestCase extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class BaseTestCase extends TestCase
 {
 
     /**
@@ -20,5 +22,17 @@ abstract class BaseTestCase extends \PHPUnit_Framework_TestCase
         $method = $class->getMethod($method);
         $method->setAccessible(true);
         return $method->invokeArgs($object, $args);
+    }
+
+    /**
+     * Because I'm too lazy to replace all getMock() usages...
+     *
+     * @param string $className
+     * @param array $methods
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMock($className, $methods = [])
+    {
+        return $this->getMockBuilder($className)->setMethods($methods)->getMock();
     }
 }

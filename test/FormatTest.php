@@ -4,7 +4,7 @@ namespace NordCode\RoboParameters\Test;
 
 use NordCode\RoboParameters\Format;
 
-class FormatTest extends \PHPUnit_Framework_TestCase
+class FormatTest extends BaseTestCase
 {
     public function guessFormatFromPathDataProvider()
     {
