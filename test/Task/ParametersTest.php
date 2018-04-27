@@ -7,12 +7,12 @@ use NordCode\RoboParameters\Reader\ReaderRegistry;
 use NordCode\RoboParameters\Serializer\ParameterSerializerInterface;
 use NordCode\RoboParameters\Serializer\SerializerRegistry;
 use NordCode\RoboParameters\Task\Parameters;
-use NordCode\RoboParameters\Test\BaseTestCase;
+use NordCode\RoboParameters\Test\BaseTaskTestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamFile;
 
-class ParametersTest extends BaseTestCase
+class ParametersTest extends BaseTaskTestCase
 {
 
     const PARAMETERS_FILE = 'parameters.yml';
@@ -149,6 +149,7 @@ class ParametersTest extends BaseTestCase
     }
 
     /**
+     * TODO: this will cause robo to print the error message
      * @test
      */
     public function taskFailsOnWritingFailure()

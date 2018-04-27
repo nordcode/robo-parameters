@@ -17,7 +17,7 @@
     },
     "require": {
         "php": ">=7.0",
-        "codegyre/robo": ">=0.5"
+        "consolidation/robo": "^1.0"
     },
     "suggest": {
         "symfony/yaml": "Required for reading and writing YAML files",
